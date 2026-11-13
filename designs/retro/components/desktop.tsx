@@ -61,7 +61,7 @@ const fileName = (value: string) => value.toUpperCase().replace(/[^A-Z0-9]+/g, "
 // Real numbers only, all taken from the CV.
 const GAUGES = [
   { label: "BUILDS", value: String(projects.length), unit: "AI PROJECTS", note: "1 LIVE SAAS · LEADSENGINE.AI", filled: 20, tone: "green" as const },
-  { label: "AUTOMATION", value: String(projects.filter((p) => p.visual === "workflow").length), unit: "N8N WORKFLOWS", note: "SUPPORT · WHATSAPP · INVOICES", filled: 15, tone: "teal" as const },
+  { label: "AUTOMATION", value: String(projects.filter((p) => p.kind === "n8n automation").length), unit: "N8N WORKFLOWS", note: "SUPPORT · WHATSAPP · INVOICES", filled: 15, tone: "teal" as const },
   { label: "EVALUATION", value: "2", unit: "MODEL LABS", note: "GOOGLE GEMINI · ANTHROPIC", filled: 13, tone: "navy" as const },
   { label: "ACADEMICS", value: "3.6", unit: "/ 4.0 CGPA", note: "BS CS · 1 PUBLICATION", filled: 18, tone: "green" as const },
 ];
