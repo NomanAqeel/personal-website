@@ -627,6 +627,182 @@ export function WorkflowVisual({ flow }: { flow: string[] }) {
   );
 }
 
+/* ------------------------------------------------------------------ */
+/* AI Support & CRM: tickets travel a kanban board INBOX ▸ AI ▸ SYNCED  */
+/* ------------------------------------------------------------------ */
+
+const TICKETS = [
+  { id: "#4821", subject: "Refund for double charge", tag: "REFUND" },
+  { id: "#4822", subject: "Can't log in after reset", tag: "BUG" },
+  { id: "#4823", subject: "Need invoice copy", tag: "BILLING" },
+];
+const SUPPORT_COLS = ["INBOX", "AI DRAFT", "CRM ✓ SLACK"];
+const SUPPORT_LOG = [
+  "gmail ▸ 3 new tickets received",
+  "llm ▸ classified: refund · bug · billing",
+  "llm ▸ replies drafted in customer's tone",
+  "crm ▸ 3 records updated · owner assigned",
+  "slack ▸ #support pinged · auto-ack sent",
+];
+
+export function SupportVisual() {
+  const { ref, step } = useStep(11, 850);
+  // Ticket i enters the board two beats after the previous one and advances one column per beat.
+  const colOf = (i: number) => Math.min(3, Math.max(0, step - 2 * i)); // 0 = not yet, 1..3 = column
+  const done = step >= 8;
+  const counts = SUPPORT_COLS.map((_, c) => TICKETS.filter((_, i) => colOf(i) === c + 1).length);
+  const logShown = done ? SUPPORT_LOG.length : Math.min(SUPPORT_LOG.length, Math.floor(step / 1.6));
+  return (
+    <Screen rootRef={ref} title="SUPPORT.FLOW // INBOX" status={done ? "● 0 MANUAL" : `● ${counts[0] + counts[1]} OPEN`}>
+      <div className="grid grid-cols-3 gap-[1.5cqw] text-[2.6cqw]" style={{ color: DIM }}>
+        {SUPPORT_COLS.map((col, c) => (
+          <div key={col} className="flex items-center justify-between border-b pb-[1cqw]" style={{ borderColor: DIM, color: counts[c] ? INK : DIM }}>
+            <span className="truncate">{col}</span>
+            <span className="tabular-nums">{counts[c]}</span>
+          </div>
+        ))}
+      </div>
+      <div className="relative mt-[1.5cqw]" style={{ height: "46%" }}>
+        {[1, 2].map((c) => (
+          <div key={c} className="absolute top-0 bottom-0 w-px" style={{ left: `${(c * 100) / 3}%`, background: DIM, opacity: 0.5 }} />
+        ))}
+        {TICKETS.map((ticket, i) => {
+          const col = colOf(i);
+          const synced = col === 3;
+          const drafting = col === 2;
+          return (
+            <div
+              key={ticket.id}
+              className="absolute border px-[1.6cqw] py-[1.2cqw] text-[2.5cqw] leading-[1.3]"
+              style={{
+                width: "30.5%",
+                top: `${i * 32}%`,
+                left: `${((Math.max(1, col) - 1) * 100) / 3 + 1.2}%`,
+                opacity: col === 0 ? 0 : 1,
+                borderColor: synced ? INK : drafting ? AMBER : DIM,
+                background: synced ? "#122612" : BG,
+                color: synced ? INK : SOFT,
+                transform: col === 0 ? "translateX(-12%)" : "none",
+                transition: "left 0.6s cubic-bezier(.2,.8,.2,1), opacity 0.4s, transform 0.4s, border-color 0.3s, background 0.3s",
+              }}
+            >
+              <div className="flex justify-between gap-[1cqw]">
+                <span className="tabular-nums" style={{ color: synced ? INK : DIM }}>
+                  {ticket.id}
+                </span>
+                <span style={{ color: drafting ? AMBER : synced ? INK : DIM }}>
+                  {synced ? "✓" : drafting ? "▶" : col === 1 ? "○" : ""}
+                </span>
+              </div>
+              <p className="truncate">{ticket.subject}</p>
+              <span
+                className="mt-[0.6cqw] inline-block border px-[1cqw] text-[2.1cqw] transition-opacity duration-300"
+                style={{ borderColor: col >= 2 ? INK : DIM, color: col >= 2 ? INK : DIM, opacity: col >= 2 ? 1 : 0.35 }}
+              >
+                {col >= 2 ? ticket.tag : "···"}
+              </span>
+            </div>
+          );
+        })}
+      </div>
+      <div className="mt-[2cqw] grid gap-[0.5cqw] text-[3cqw]">
+        {SUPPORT_LOG.map((line, i) => (
+          <Line key={line} show={i < logShown} color={i === logShown - 1 && !done ? INK : DIM}>
+            {line}
+          </Line>
+        ))}
+      </div>
+      <Line show={done} color={AMBER}>
+        ✓ 3 tickets resolved · 0 touched by hand
+      </Line>
+    </Screen>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* WhatsApp AI: chat on top, live intent / lead-score panel below      */
+/* ------------------------------------------------------------------ */
+
+type WaMsg = { who: "user" | "bot" | "sys"; text: string; intent?: string; score?: number; crm?: boolean; human?: boolean };
+
+const WA_CHAT: WaMsg[] = [
+  { who: "user", text: "Hi, do you build AI chatbots for a clinic?" },
+  { who: "sys", text: "intent ▸ SALES_INQUIRY · 0.94", intent: "SALES_INQUIRY", score: 35 },
+  { who: "bot", text: "Yes! Which clinic, and roughly how many patients a day?" },
+  { who: "user", text: "Dental, ~60/day. We need WhatsApp booking." },
+  { who: "sys", text: "lead ▸ QUALIFIED · score 82", score: 82 },
+  { who: "bot", text: "Great fit. Shall I book a 15-min call tomorrow at 11:00?" },
+  { who: "sys", text: "crm ▸ lead L-1042 created · follow-up scheduled", crm: true },
+  { who: "user", text: "Can I speak to a person first?" },
+  { who: "sys", text: "▶ handed to human agent · context attached", human: true },
+];
+
+export function WhatsAppVisual() {
+  const { ref, step } = useStep(WA_CHAT.length + 3, 950);
+  const shown = WA_CHAT.slice(0, Math.min(step + 1, WA_CHAT.length));
+  const visible = shown.slice(-4);
+  const intent = [...shown].reverse().find((m) => m.intent)?.intent ?? "—";
+  const score = [...shown].reverse().find((m) => m.score !== undefined)?.score ?? 0;
+  const crm = shown.some((m) => m.crm);
+  const human = shown.some((m) => m.human);
+  const bars = Math.round(score / 10);
+  return (
+    <Screen rootRef={ref} title="WHATSAPP // AI AGENT" status={human ? "● HUMAN" : "● BOT ONLINE"}>
+      <div className="flex items-center gap-[1.5cqw] text-[2.6cqw]" style={{ color: DIM }}>
+        <span className="inline-block h-[4cqw] w-[4cqw] rounded-full border" style={{ borderColor: INK, background: "#122612" }} />
+        <span style={{ color: SOFT }}>+92 3·· ···· ··</span>
+        <span>· {human ? "agent typing…" : "online"}</span>
+      </div>
+      <div className="flex min-h-0 flex-1 flex-col justify-end gap-[1.4cqw] overflow-hidden py-[2cqw]">
+        {visible.map((msg) =>
+          msg.who === "sys" ? (
+            <p key={msg.text} className="text-center text-[2.6cqw] transition-opacity" style={{ color: msg.human ? AMBER : DIM }}>
+              {msg.text}
+            </p>
+          ) : (
+            <div
+              key={msg.text}
+              className={`relative max-w-[80%] px-[2.4cqw] py-[1.3cqw] text-[3cqw] ${msg.who === "user" ? "self-start" : "self-end"}`}
+              style={{
+                background: msg.who === "user" ? "#142e14" : INK,
+                color: msg.who === "user" ? SOFT : BG,
+                borderRadius: msg.who === "user" ? "0 1.6cqw 1.6cqw 1.6cqw" : "1.6cqw 0 1.6cqw 1.6cqw",
+              }}
+            >
+              {msg.text}
+              <span className="mt-[0.4cqw] block text-right text-[2.1cqw]" style={{ color: msg.who === "user" ? DIM : "#0b120b99" }}>
+                {msg.who === "user" ? "11:0" + (visible.indexOf(msg) + 2) : "✓✓ auto"}
+              </span>
+            </div>
+          ),
+        )}
+      </div>
+      <div className="grid grid-cols-[1fr_auto] gap-x-[2cqw] gap-y-[0.8cqw] border-t pt-[1.6cqw] text-[2.6cqw]" style={{ borderColor: DIM }}>
+        <span style={{ color: DIM }}>
+          INTENT <span style={{ color: INK }}>{intent}</span>
+        </span>
+        <span style={{ color: crm ? INK : DIM }}>{crm ? "✓ CRM" : "○ CRM"}</span>
+        <span className="flex items-center gap-[1.2cqw]" style={{ color: DIM }}>
+          SCORE
+          <span className="flex gap-[0.5cqw]">
+            {Array.from({ length: 10 }, (_, i) => (
+              <i
+                key={i}
+                className="inline-block h-[2.4cqw] w-[1.6cqw] transition-colors duration-500"
+                style={{ background: i < bars ? (score >= 70 ? INK : AMBER) : "#1a2e1a" }}
+              />
+            ))}
+          </span>
+          <span className="tabular-nums" style={{ color: score >= 70 ? INK : AMBER }}>
+            {score}
+          </span>
+        </span>
+        <span style={{ color: human ? AMBER : DIM }}>{human ? "● HUMAN" : "○ HUMAN"}</span>
+      </div>
+    </Screen>
+  );
+}
+
 export function ProjectVisual({ project }: { project: Project }) {
   switch (project.visual) {
     case "hema":
@@ -641,6 +817,10 @@ export function ProjectVisual({ project }: { project: Project }) {
       return <RagVisual />;
     case "agents":
       return <AgentsVisual />;
+    case "support":
+      return <SupportVisual />;
+    case "whatsapp":
+      return <WhatsAppVisual />;
     default:
       return <WorkflowVisual flow={project.flow ?? []} />;
   }

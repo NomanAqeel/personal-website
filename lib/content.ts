@@ -175,7 +175,7 @@ export type ProjectLink = {
   href: string;
 };
 
-export type ProjectVisualKind = "hema" | "leads" | "chatbot" | "anpr" | "rag" | "agents" | "workflow";
+export type ProjectVisualKind = "hema" | "leads" | "chatbot" | "anpr" | "rag" | "agents" | "support" | "whatsapp" | "workflow";
 
 export type Project = {
   id: string;
@@ -299,7 +299,7 @@ export const projects: Project[] = [
     name: "AI Support & CRM",
     kind: "n8n automation",
     role: "Automation engineer",
-    visual: "workflow",
+    visual: "support",
     flow: ["Gmail", "Classify", "LLM reply", "CRM", "Slack"],
     summary:
       "An AI customer-support workflow that classifies requests, drafts context-aware replies, and updates CRM records automatically.",
@@ -315,7 +315,7 @@ export const projects: Project[] = [
     name: "WhatsApp AI Automation",
     kind: "n8n automation",
     role: "Automation engineer",
-    visual: "workflow",
+    visual: "whatsapp",
     flow: ["WhatsApp", "Intent", "Qualify", "CRM sync", "Human"],
     summary:
       "An AI-powered WhatsApp workflow for customer support, lead qualification, and personalized follow-up messaging.",
