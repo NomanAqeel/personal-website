@@ -150,6 +150,15 @@ export function BootScreen() {
   const [phase, setPhase] = useState<"boot" | "fade" | "done">("boot");
   const [run, setRun] = useState(0);
 
+  // A reload boots from the top like a real machine: drop the section hash and reset the scroll
+  // position (history.scrollRestoration is set to "manual" in layout.tsx before first paint).
+  useEffect(() => {
+    const nav = performance.getEntriesByType("navigation")[0] as PerformanceNavigationTiming | undefined;
+    if (nav?.type !== "reload") return;
+    if (window.location.hash) history.replaceState(null, "", window.location.pathname + window.location.search);
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }, []);
+
   useEffect(() => {
     const onReboot = () => {
       window.scrollTo({ top: 0 });

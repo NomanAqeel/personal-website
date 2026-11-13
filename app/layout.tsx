@@ -47,11 +47,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body>
         <JsonLd />
         <div className={`retro-root ${retroFontVariables}`} suppressHydrationWarning>
-          {/* Apply the saved wallpaper before first paint so there's no flash of the default teal. */}
+          {/* Before first paint: apply the saved wallpaper (no flash of the default teal) and stop the
+              browser from restoring the old scroll position, so a reload always boots from the top. */}
           <script
             dangerouslySetInnerHTML={{
               __html:
-                'try{var w=localStorage.getItem("maos-wallpaper");if(w&&/^(teal|navy|plum|crt)$/.test(w))document.currentScript.parentElement.dataset.wallpaper=w}catch(e){}',
+                'try{history.scrollRestoration="manual"}catch(e){}try{var w=localStorage.getItem("maos-wallpaper");if(w&&/^(teal|navy|plum|crt)$/.test(w))document.currentScript.parentElement.dataset.wallpaper=w}catch(e){}',
             }}
           />
           {children}
