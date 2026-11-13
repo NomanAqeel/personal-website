@@ -486,9 +486,9 @@ export const faq = [
       "AI agents and agentic workflows, LLM application development, RAG knowledge assistants and chatbots, n8n / Make.com / Zapier workflow automation, GoHighLevel business systems (websites, funnels, CRM pipelines, recruitment systems, AI voice agents), WhatsApp and customer-support automation, and AI model evaluation - for startups, agencies, and enterprises in Dubai, Abu Dhabi, and across the GCC.",
   },
   {
-    question: "Which tools and technologies does Noman Aqeel work with?",
+    question: "How does Noman Aqeel work with clients in the UAE - process and time zone?",
     answer:
-      "Python, LangChain, LangGraph, FastAPI, REST APIs and webhooks, Pinecone, ChromaDB, FAISS, n8n, Make.com, Zapier, GoHighLevel, PostgreSQL, MySQL, Firebase, Docker, and AWS, plus WordPress and Shopify for web work.",
+      "A short discovery call to understand the business problem, then a written scope, a build-and-test phase with regular demos, deployment, and support after launch. Pakistan is only one hour ahead of UAE time (PKT is UTC+5, GST is UTC+4), so working hours overlap almost completely with Dubai and Abu Dhabi teams, and communication runs over WhatsApp, email, Google Meet, or Zoom.",
   },
   {
     question: "How can I contact Noman Aqeel?",
@@ -496,9 +496,9 @@ export const faq = [
       "Email nomanaqeel773@gmail.com, message +92 326 3426361 on WhatsApp, connect on LinkedIn, or send a note through the contact form at the bottom of this page.",
   },
   {
-    question: "How does Noman Aqeel work with clients in the UAE - process and time zone?",
+    question: "Which tools and technologies does Noman Aqeel work with?",
     answer:
-      "A short discovery call to understand the business problem, then a written scope, a build-and-test phase with regular demos, deployment, and support after launch. Pakistan is only one hour ahead of UAE time (PKT is UTC+5, GST is UTC+4), so working hours overlap almost completely with Dubai and Abu Dhabi teams, and communication runs over WhatsApp, email, Google Meet, or Zoom.",
+      "Python, LangChain, LangGraph, FastAPI, REST APIs and webhooks, Pinecone, ChromaDB, FAISS, n8n, Make.com, Zapier, GoHighLevel, PostgreSQL, MySQL, Firebase, Docker, and AWS, plus WordPress and Shopify for web work.",
   },
 ] as const;
 
