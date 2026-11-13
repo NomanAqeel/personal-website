@@ -175,7 +175,7 @@ export type ProjectLink = {
   href: string;
 };
 
-export type ProjectVisualKind = "hema" | "leads" | "chatbot" | "anpr" | "rag" | "agents" | "support" | "whatsapp" | "workflow";
+export type ProjectVisualKind = "hema" | "leads" | "chatbot" | "anpr" | "rag" | "agents" | "support" | "whatsapp" | "ghl" | "workflow";
 
 export type Project = {
   id: string;
@@ -233,6 +233,21 @@ export const projects: Project[] = [
     ],
     stack: ["MERN Stack", "LLM Integration", "Apify", "REST APIs", "AI Chatbot"],
     links: [{ label: "Live", href: "https://leadsengine.ai" }],
+  },
+  {
+    id: "ghl-homecare",
+    name: "Home Care Business OS",
+    kind: "GoHighLevel system",
+    role: "Systems & automation",
+    visual: "ghl",
+    summary:
+      "A complete business system for a home care agency built on GoHighLevel - website, funnels, CRM pipelines, a full caregiver recruitment system, and AI agents that handle clients and calls.",
+    highlights: [
+      "Designed the agency's website, lead funnels, and client pipeline, with automated follow-ups, reminders, and onboarding processes end to end.",
+      "Built a complete caregiver recruitment system (job funnels, screening, interview and hiring pipeline) plus AI calling and client-handling agents working inside the same GHL workspace.",
+    ],
+    stack: ["GoHighLevel", "Funnels & Website", "CRM Pipelines", "Workflow Automation", "AI Voice Agents", "Recruitment System"],
+    links: [],
   },
   {
     id: "chatbot-platform",

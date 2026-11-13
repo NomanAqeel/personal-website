@@ -803,6 +803,125 @@ export function WhatsAppVisual() {
   );
 }
 
+/* ------------------------------------------------------------------ */
+/* GoHighLevel home-care OS: modules light up, two pipelines, AI calls  */
+/* ------------------------------------------------------------------ */
+
+const GHL_MODULES = ["SITE", "FUNNEL", "CRM", "AI AGENT"] as const;
+const GHL_CLIENT_STAGES = ["NEW LEAD", "ASSESSMENT", "CARE PLAN", "ACTIVE"];
+const GHL_HIRE_STAGES = ["APPLIED", "SCREENED", "INTERVIEW", "HIRED"];
+
+// One client journey and one caregiver hire, both inside the same GHL workspace.
+const GHL_STEPS: Array<{ on: (typeof GHL_MODULES)[number]; log: string; client?: number; hire?: number; call?: boolean }> = [
+  { on: "SITE", log: "site ▸ family lands on homecare website" },
+  { on: "FUNNEL", log: "funnel ▸ 'free care assessment' form submitted" },
+  { on: "CRM", log: "crm ▸ contact created · pipeline: new lead", client: 0 },
+  { on: "AI AGENT", log: "ai agent ▸ calling lead… qualifying needs", call: true },
+  { on: "AI AGENT", log: "ai agent ▸ answered · assessment booked", client: 1, call: true },
+  { on: "CRM", log: "workflow ▸ reminders + sms/email follow-ups sent", client: 2 },
+  { on: "FUNNEL", log: "recruiting ▸ 4 caregiver applications via job funnel", hire: 0 },
+  { on: "AI AGENT", log: "ai agent ▸ screening calls · 2 moved to interview", hire: 1, call: true },
+  { on: "CRM", log: "workflow ▸ interview booked · onboarding docs sent", hire: 2 },
+  { on: "CRM", log: "crm ▸ caregiver hired · client matched · active", client: 3, hire: 3 },
+];
+
+function GhlPipeline({ label, stages, at, done }: { label: string; stages: string[]; at: number; done: boolean }) {
+  return (
+    <div>
+      <div className="flex justify-between text-[2.4cqw]" style={{ color: DIM }}>
+        <span>{label}</span>
+        <span style={{ color: at >= 0 ? INK : DIM }}>{at >= 0 ? stages[at] : "—"}</span>
+      </div>
+      <div className="mt-[0.8cqw] flex items-center">
+        {stages.map((stage, i) => (
+          <div key={stage} className="flex flex-1 items-center">
+            <span
+              className="inline-block h-[2.6cqw] w-[2.6cqw] shrink-0 rounded-full border transition-colors duration-300"
+              style={{
+                borderColor: i <= at ? INK : DIM,
+                background: i < at ? "#122612" : i === at ? INK : BG,
+                boxShadow: i === at && !done ? `0 0 0 0.8cqw ${INK}44` : "none",
+              }}
+            />
+            {i < stages.length - 1 ? (
+              <span className="h-px flex-1 transition-colors duration-300" style={{ background: i < at ? INK : DIM }} />
+            ) : null}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export function GhlVisual() {
+  const { ref, step } = useStep(GHL_STEPS.length + 3, 900);
+  const idx = Math.min(step, GHL_STEPS.length - 1);
+  const done = step >= GHL_STEPS.length;
+  const current = GHL_STEPS[idx] ?? GHL_STEPS[0];
+  const past = GHL_STEPS.slice(0, idx + 1);
+  const clientStage = Math.max(-1, ...past.map((s) => s.client ?? -1));
+  const hireStage = Math.max(-1, ...past.map((s) => s.hire ?? -1));
+  const calling = !done && Boolean(current.call);
+  const calls = past.filter((s) => s.call).length;
+  const logShown = past.slice(-4);
+
+  return (
+    <Screen rootRef={ref} title="GHL // HOMECARE OS" status={done ? "● SYSTEM LIVE" : calling ? "● ON CALL" : "● AUTOMATING"}>
+      <div className="grid grid-cols-4 gap-[1.2cqw] text-[2.5cqw]">
+        {GHL_MODULES.map((mod) => {
+          const on = !done && current.on === mod;
+          return (
+            <div
+              key={mod}
+              className="border px-[1cqw] py-[1.2cqw] text-center transition-colors duration-300"
+              style={{ borderColor: on || done ? INK : DIM, background: on ? INK : done ? "#122612" : BG, color: on ? BG : done ? INK : DIM }}
+            >
+              {mod}
+            </div>
+          );
+        })}
+      </div>
+
+      <div className="mt-[3cqw] grid gap-[2.6cqw]">
+        <GhlPipeline label="CLIENTS" stages={GHL_CLIENT_STAGES} at={clientStage} done={done} />
+        <GhlPipeline label="CAREGIVERS" stages={GHL_HIRE_STAGES} at={hireStage} done={done} />
+      </div>
+
+      <div className="mt-[3cqw] flex items-center gap-[2cqw] border px-[2cqw] py-[1.4cqw] text-[2.6cqw] transition-colors duration-300" style={{ borderColor: calling ? AMBER : DIM }}>
+        <span style={{ color: calling ? AMBER : DIM }}>☎</span>
+        <span className="flex h-[4cqw] items-end gap-[0.5cqw]" aria-hidden="true">
+          {[0.5, 0.9, 0.6, 1, 0.7, 0.4, 0.8].map((h, i) => (
+            <i
+              key={i}
+              className="inline-block w-[0.9cqw]"
+              style={{
+                height: `${(calling ? h : 0.2) * 100}%`,
+                background: calling ? AMBER : DIM,
+                transformOrigin: "bottom",
+                animation: calling ? `pv-wave 0.6s ease-in-out ${i * 0.08}s infinite alternate` : "none",
+              }}
+            />
+          ))}
+        </span>
+        <span className="truncate" style={{ color: calling ? SOFT : DIM }}>
+          {calling ? "ai voice agent on the line…" : `ai agent · ${calls} calls handled`}
+        </span>
+      </div>
+
+      <div className="mt-auto grid gap-[0.5cqw] text-[2.9cqw]">
+        {logShown.map((item, i) => (
+          <p key={item.log} className="truncate" style={{ color: i === logShown.length - 1 && !done ? INK : DIM }}>
+            {item.log}
+          </p>
+        ))}
+        <Line show={done} color={AMBER}>
+          ✓ marketing · sales · staffing · care — one system
+        </Line>
+      </div>
+    </Screen>
+  );
+}
+
 export function ProjectVisual({ project }: { project: Project }) {
   switch (project.visual) {
     case "hema":
@@ -821,6 +940,8 @@ export function ProjectVisual({ project }: { project: Project }) {
       return <SupportVisual />;
     case "whatsapp":
       return <WhatsAppVisual />;
+    case "ghl":
+      return <GhlVisual />;
     default:
       return <WorkflowVisual flow={project.flow ?? []} />;
   }

@@ -15,3 +15,13 @@ body {
     scroll-behavior: auto;
   }
 }
+
+/* Voice-call waveform used by the project previews. */
+@keyframes pv-wave {
+  from {
+    transform: scaleY(0.35);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
