@@ -436,19 +436,20 @@ export function RetroDesktop() {
 
         {/* 8. FAQ: direct answers for visitors and AI answer engines (mirrored as FAQPage schema) */}
         <Win wid="faq" id="faq" title="C:\SYS\FAQ.TXT - Frequently Asked Questions" variant="teal" right={`${faq.length} ENTRIES`} heading="Frequently asked questions about hiring Noman Aqeel">
-          <dl className="r-paper grid gap-4 p-4 text-[13px] leading-6 sm:p-6 md:grid-cols-2">
+          <div className="r-paper grid gap-3 p-4 text-[13px] leading-6 sm:p-6 md:grid-cols-2 md:items-start">
             {faq.map((item, i) => (
-              <div key={item.question} className="r-sunken bg-white p-3">
-                <dt className="r-ui text-[1.05rem] leading-snug font-bold">
-                  <span className="font-mono text-[#808080]" aria-hidden="true">
-                    Q{i + 1}&gt;{" "}
+              <details key={item.question} className="r-faq r-sunken bg-white">
+                <summary className="r-ui text-[1.05rem] leading-snug font-bold">
+                  <span className="r-faq-marker font-mono text-[#808080]" aria-hidden="true">
+                    Q{i + 1}&gt;
                   </span>
-                  {item.question}
-                </dt>
-                <dd className="mt-2 text-[#3e4949]">{item.answer}</dd>
-              </div>
+                  <span className="min-w-0 flex-1">{item.question}</span>
+                  <span className="r-faq-toggle r-ctl" aria-hidden="true" />
+                </summary>
+                <p className="r-faq-answer text-[#3e4949]">{item.answer}</p>
+              </details>
             ))}
-          </dl>
+          </div>
         </Win>
 
         {/* 9. MS-DOS contact terminal */}

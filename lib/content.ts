@@ -404,16 +404,6 @@ export const skillGroups = [
     items: ["Pandas", "MySQL", "Firebase", "PostgreSQL", "Data Analysis", "Kaggle"],
   },
   {
-    id: "tools",
-    label: "Development Tools",
-    items: ["Git", "GitHub", "WordPress", "Shopify", "Sanity", "Cursor", "Claude Code"],
-  },
-  {
-    id: "deploy",
-    label: "Deployment",
-    items: ["AWS VPS Server", "Docker"],
-  },
-  {
     id: "soft",
     label: "Soft Skills",
     items: [
@@ -425,6 +415,16 @@ export const skillGroups = [
       "Requirements Analysis",
       "Attention to Detail",
     ],
+  },
+  {
+    id: "tools",
+    label: "Development Tools",
+    items: ["Git", "GitHub", "WordPress", "Shopify", "Sanity", "Cursor", "Claude Code"],
+  },
+  {
+    id: "deploy",
+    label: "Deployment",
+    items: ["AWS VPS Server", "Docker"],
   },
 ] as const;
 
@@ -494,6 +494,11 @@ export const faq = [
     question: "How can I contact Noman Aqeel?",
     answer:
       "Email nomanaqeel773@gmail.com, message +92 326 3426361 on WhatsApp, connect on LinkedIn, or send a note through the contact form at the bottom of this page.",
+  },
+  {
+    question: "How does Noman Aqeel work with clients in the UAE - process and time zone?",
+    answer:
+      "A short discovery call to understand the business problem, then a written scope, a build-and-test phase with regular demos, deployment, and support after launch. Pakistan is only one hour ahead of UAE time (PKT is UTC+5, GST is UTC+4), so working hours overlap almost completely with Dubai and Abu Dhabi teams, and communication runs over WhatsApp, email, Google Meet, or Zoom.",
   },
 ] as const;
 

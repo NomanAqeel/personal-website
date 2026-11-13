@@ -627,3 +627,65 @@ body:has(.retro-root) nextjs-portal {
     animation: none;
   }
 }
+
+/* ---- FAQ.TXT accordion: question as a clickable row, answer drops down ---- */
+.r-faq > summary {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 10px 12px;
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+}
+.r-faq > summary::-webkit-details-marker {
+  display: none;
+}
+.r-faq > summary:hover {
+  background: #f4f1ea;
+}
+.r-faq > summary:focus-visible {
+  outline: 1px dotted #000;
+  outline-offset: -4px;
+}
+.r-faq-marker {
+  flex: none;
+  padding-top: 1px;
+}
+.r-faq-toggle {
+  flex: none;
+  margin-top: 2px;
+  width: 18px;
+  height: 16px;
+  font-size: 10px;
+  line-height: 1;
+}
+.r-faq-toggle::before {
+  content: "▼";
+}
+.r-faq[open] > .r-faq-toggle::before,
+.r-faq[open] > summary .r-faq-toggle::before {
+  content: "▲";
+}
+.r-faq-answer {
+  margin: 0;
+  padding: 0 12px 12px 42px;
+  border-top: 1px dashed #d8d2c2;
+  padding-top: 10px;
+  animation: r-faq-drop 140ms steps(3, end);
+}
+@keyframes r-faq-drop {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .r-faq-answer {
+    animation: none;
+  }
+}
