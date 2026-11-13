@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+/* Site-wide base. The NA/OS look itself lives in designs/retro/retro.css. */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 48px;
+  background: #008080;
+}
+body {
+  margin: 0;
+  min-height: 100%;
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
