@@ -21,6 +21,7 @@ designs/
   classic/            Previous dark design, archived and not routed (see designs/classic/README.md)
 components/           Shared by both designs: project previews, JSON-LD structured data
 lib/                  Shared content (content.ts) and site config (site.ts)
+cv/                   Source for the downloadable CV (resume.html, build.sh)
 public/               Static files, including Noman_Aqeel_CV.pdf
 ```
 
@@ -52,7 +53,7 @@ Then set `NEXT_PUBLIC_SITE_URL` to your domain. On Vercel it is picked up automa
 
 ## CV
 
-The downloadable résumé is `public/Noman_Aqeel_CV.pdf`. Replace that file to update it; the `[OPEN RESUME.PDF]` button and the `CV.PDF` download link both point to it via `profile.cvHref` in `lib/content.ts`.
+The downloadable résumé (`public/Noman_Aqeel_CV.pdf`) is generated from `cv/resume.html`. Edit the HTML, then run `npm run cv` (needs Google Chrome; it fails if the PDF grows past two pages). The `[OPEN RESUME.PDF]` button and the `CV.PDF` download link both point to that file via `profile.cvHref` in `lib/content.ts`.
 
 ## Deploy on Vercel
 
