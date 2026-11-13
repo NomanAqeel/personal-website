@@ -1,5 +1,6 @@
 import { JsonLd } from "@/components/json-ld";
 import { retroFontVariables } from "@/designs/retro/fonts";
+import { profile } from "@/lib/content";
 import { getSiteUrl, siteConfig } from "@/lib/site";
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
@@ -18,21 +19,42 @@ export const metadata: Metadata = {
   keywords: [...siteConfig.keywords],
   authors: [{ name: siteConfig.name, url: siteUrl }],
   creator: siteConfig.name,
+  publisher: siteConfig.name,
+  applicationName: `${siteConfig.name} - ${siteConfig.role}`,
+  category: "technology",
   alternates: { canonical: "/" },
   openGraph: {
-    type: "website",
-    locale: "en_US",
+    type: "profile",
+    firstName: "Noman",
+    lastName: "Aqeel",
+    username: "NomanAqeel",
+    locale: "en_AE",
     url: siteUrl,
     title: siteConfig.title,
     description: siteConfig.description,
     siteName: siteConfig.name,
+    countryName: "United Arab Emirates",
   },
   twitter: {
     card: "summary_large_image",
     title: siteConfig.title,
     description: siteConfig.description,
   },
-  robots: { index: true, follow: true },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 },
+  },
+  // Search Console / Bing Webmaster verification codes, set as env vars when available.
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
+    other: process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION ? { "msvalidate.01": process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION } : undefined,
+  },
+  other: {
+    // Target market (where the site should rank) rather than physical location.
+    "geo.region": "AE",
+    "geo.placename": "Dubai, United Arab Emirates",
+  },
 };
 
 export const viewport: Viewport = {
@@ -45,6 +67,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body>
+        {/* rel="me" ties this site to the same person's LinkedIn and GitHub profiles. */}
+        <link rel="me" href={profile.social.linkedin} />
+        <link rel="me" href={profile.social.github} />
         <JsonLd />
         <div className={`retro-root ${retroFontVariables}`} suppressHydrationWarning>
           {/* Before first paint: apply the saved wallpaper (no flash of the default teal) and stop the

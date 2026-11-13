@@ -5,6 +5,7 @@ import {
   contact,
   education,
   experience,
+  faq,
   hero,
   linkLabel,
   profile,
@@ -76,6 +77,7 @@ const TASKS: Task[] = [
   { wid: "experience", href: "#experience", label: "Experience.log" },
   { wid: "projects", href: "#projects", label: "Projects.dir" },
   { wid: "skills", href: "#skills", label: "Skills.dbf" },
+  { wid: "faq", href: "#faq", label: "Faq.txt" },
   { wid: "contact", href: "#contact", label: "Command.com" },
 ];
 
@@ -121,7 +123,13 @@ export function RetroDesktop() {
         </div>
 
         {/* 2. Profile window */}
-        <Win wid="profile" id="about" title={`C:\\SYS\\WORKSTATION\\PROFILE - ${profile.name} (${profile.role})`} menu>
+        <Win
+          wid="profile"
+          id="about"
+          title={`C:\\SYS\\WORKSTATION\\PROFILE - ${profile.name} (${profile.role})`}
+          heading={`About ${profile.name} - AI Engineer for UAE and Gulf companies`}
+          menu
+        >
           <div className="r-paper grid gap-8 p-4 sm:p-7 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] xl:grid-cols-[minmax(0,1.55fr)_minmax(400px,1fr)]">
             <div className="min-w-0">
               <div className="flex flex-wrap gap-2.5">
@@ -144,6 +152,7 @@ export function RetroDesktop() {
                 AI <mark>Engineer</mark>
               </h1>
               <p className="mt-2 r-label text-[13px] text-[#1e1c12]">{profile.tagline}</p>
+              <p className="mt-1 text-[12px] text-[#2e7d78]">{hero.locationLine}</p>
               <p className="mt-2 text-[12.5px] text-[#3e4949]">
                 {about.heading} {about.headingAccent}
               </p>
@@ -193,7 +202,7 @@ export function RetroDesktop() {
           </div>
         </Win>
 
-        <Win wid="readme" title="C:\SYS\README.TXT - Notepad" variant="teal">
+        <Win wid="readme" title="C:\SYS\README.TXT - Notepad" variant="teal" heading="Profile summary">
           <div className="r-paper grid gap-3 p-4 text-[13px] leading-6 sm:p-6 md:grid-cols-3">
             {about.paragraphs.map((paragraph) => (
               <p key={paragraph}>{paragraph}</p>
@@ -202,7 +211,7 @@ export function RetroDesktop() {
         </Win>
 
         {/* 3. Telemetry gauges */}
-        <Win wid="perfmon" title="PERFMON.EXE - Live Telemetry & System Gauges" right="BUS: LLM-API // VECTOR-DB">
+        <Win wid="perfmon" title="PERFMON.EXE - Live Telemetry & System Gauges" right="BUS: LLM-API // VECTOR-DB" heading="Highlights at a glance">
           <div className="grid gap-3 bg-[#c0c0c0] p-3 sm:grid-cols-2 lg:grid-cols-4">
             {GAUGES.map((gauge, index) => (
               <div key={gauge.label} className="r-sunken r-paper p-3">
@@ -228,6 +237,7 @@ export function RetroDesktop() {
           wid="experience"
           id="experience"
           title="C:\LOGS\EXPERIENCE.LOG - Professional Experience"
+          heading="Professional experience as an AI Engineer"
           variant="teal"
           right={`${experience.length} RECORD(S)`}
         >
@@ -274,6 +284,7 @@ export function RetroDesktop() {
           wid="projects"
           id="projects"
           title="A:\ARTIFACTS\AI_PROJECTS.DIR"
+          heading="AI and automation projects"
           right={`${projects.length} OBJECT(S) FOUND`}
         >
           <div className="flex items-center gap-2 border-b border-[#808080] bg-[#c0c0c0] px-2 py-1.5">
@@ -339,6 +350,7 @@ export function RetroDesktop() {
           wid="skills"
           id="skills"
           title="DATABASE_VIEWER.EXE - TECH_INVENTORY.DBF"
+          heading="Technical skills: Agentic AI, LLM, RAG, n8n and GoHighLevel"
           right={`${skillGroups.reduce((total, group) => total + group.items.length, 0)} RECORDS LOADED`}
         >
           <div className="grid gap-4 bg-[#c0c0c0] p-3 md:grid-cols-2">
@@ -379,7 +391,13 @@ export function RetroDesktop() {
         </Win>
 
         {/* 7. Education */}
-        <Win wid="education" id="education" title="C:\SYS\CREDENTIALS.SYS - Education, Publication & Certifications" variant="teal">
+        <Win
+          wid="education"
+          id="education"
+          title="C:\SYS\CREDENTIALS.SYS - Education, Publication & Certifications"
+          heading="Education, publication and certifications"
+          variant="teal"
+        >
           <div className="grid gap-4 bg-[#c0c0c0] p-3 lg:grid-cols-2">
             <SubWin title="EDUCATION.SYS">
               <div className="r-paper flex flex-wrap items-center justify-between gap-3 p-4">
@@ -416,8 +434,25 @@ export function RetroDesktop() {
           </div>
         </Win>
 
-        {/* 8. MS-DOS contact terminal */}
-        <Win wid="contact" id="contact" title="MS-DOS Prompt - [COMMAND.COM - 80x25]">
+        {/* 8. FAQ: direct answers for visitors and AI answer engines (mirrored as FAQPage schema) */}
+        <Win wid="faq" id="faq" title="C:\SYS\FAQ.TXT - Frequently Asked Questions" variant="teal" right={`${faq.length} ENTRIES`} heading="Frequently asked questions about hiring Noman Aqeel">
+          <dl className="r-paper grid gap-4 p-4 text-[13px] leading-6 sm:p-6 md:grid-cols-2">
+            {faq.map((item, i) => (
+              <div key={item.question} className="r-sunken bg-white p-3">
+                <dt className="r-ui text-[1.05rem] leading-snug font-bold">
+                  <span className="font-mono text-[#808080]" aria-hidden="true">
+                    Q{i + 1}&gt;{" "}
+                  </span>
+                  {item.question}
+                </dt>
+                <dd className="mt-2 text-[#3e4949]">{item.answer}</dd>
+              </div>
+            ))}
+          </dl>
+        </Win>
+
+        {/* 9. MS-DOS contact terminal */}
+        <Win wid="contact" id="contact" title="MS-DOS Prompt - [COMMAND.COM - 80x25]" heading="Contact Noman Aqeel - hire an AI Engineer for your UAE team">
           <div className="r-crt r-sunken p-4 text-[13px] leading-6 sm:p-6">
             <div className="relative z-[3]">
               <p className="text-[#9cff9c]/80">
@@ -444,7 +479,7 @@ export function RetroDesktop() {
         </p>
       </main>
 
-      {/* 9. Taskbar */}
+      {/* 10. Taskbar */}
       <Taskbar tasks={TASKS} />
     </>
   );

@@ -1,0 +1,39 @@
+# Noman Aqeel - AI Engineer for UAE & Gulf companies
+
+> Noman Aqeel is an AI Engineer serving companies in the United Arab Emirates (Dubai, Abu Dhabi, Sharjah) and the wider GCC, working remotely today and open to relocation or on-site roles. Originally from Bahawalpur, Pakistan. He builds Agentic AI systems, LLM applications, Retrieval-Augmented Generation (RAG) pipelines, and AI workflow automation with Python, LangChain, LangGraph, FastAPI, vector databases, n8n, and GoHighLevel.
+
+## Who
+
+- Name: Noman Aqeel
+- Role: AI Engineer (Agentic AI, LLM Applications, RAG & Automation)
+- Market: UAE (Dubai, Abu Dhabi) and GCC; remote worldwide; open to relocation
+- Based in: Bahawalpur, Punjab, Pakistan
+- Current: AI Model Trainer / Data Analyst at Turing (Google Gemini personalized model-training evaluation), since Jan 2026
+- Previous: 3D Developer - AI Model Training at Revelo; AI Model (Opus 4.6) Evaluator at Revelo; Founder of INNOVIAST (AI automation, SaaS and business software for clients); web developer (WordPress, PHP, JavaScript)
+- Education: BS Computer Science, Superior University, Lahore (CGPA 3.6 / 4.0)
+- Publication: "A Survey on Tor's Multi-Layer Architecture and Web Implications in the Dark Web", SES, Vol. 2, No. 4, Dec 2024
+
+## Services (for startups, agencies and enterprises in the UAE and GCC)
+
+- AI agents and agentic workflows (LangChain, LangGraph, tool calling, multi-agent orchestration)
+- LLM application development and prompt engineering
+- RAG knowledge assistants and knowledge-based chatbots (Pinecone, ChromaDB, FAISS)
+- AI workflow automation with n8n, Make.com and Zapier (customer support, WhatsApp, invoices, CRM)
+- GoHighLevel (GHL) business systems: websites, funnels, CRM pipelines, recruitment systems, AI voice agents
+- AI model evaluation and training-data quality work
+
+## Selected projects
+
+- HemaSphere: blood management ecosystem (Flutter app + web platform for blood banks)
+- Leads Engine: AI-powered lead generation SaaS (live at https://leadsengine.ai)
+- Home Care Business OS: complete home care agency system on GoHighLevel with AI calling agents
+- AI Chatbot & Live Support platform, ANPR vehicle alerts (YOLOv11), RAG knowledge assistant, multi-agent research workflow, n8n automations for support/CRM, WhatsApp and invoice processing
+
+## Links
+
+- Website: https://nomanaqeel.com
+- LinkedIn: https://www.linkedin.com/in/nomanaqeel4914272a9/
+- GitHub: https://github.com/NomanAqeel
+- WhatsApp: https://wa.me/923263426361
+- Email: nomanaqeel773@gmail.com
+- CV: /Noman_Aqeel_CV.pdf

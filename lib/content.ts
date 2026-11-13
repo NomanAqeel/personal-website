@@ -34,6 +34,7 @@ export const navItems = [
 
 export const hero = {
   availability: "Open to work anywhere - remote or on-site",
+  locationLine: "AI Engineer for UAE & Gulf companies - Dubai, Abu Dhabi, GCC · remote today, open to relocation and on-site roles",
   role: "AI Engineer",
   lead: "I build Agentic AI systems, LLM applications, RAG pipelines, and AI workflow automation - Python, LangChain, LangGraph, FastAPI, vector databases, and n8n - and turn business requirements into tested, deployable solutions.",
   primaryCta: { href: "#projects", label: "See work" },
@@ -59,7 +60,7 @@ export const about = {
   heading: "Retrieve the context.",
   headingAccent: "Then automate the work.",
   paragraphs: [
-    "I am an AI Engineer working across Agentic AI, LLM applications, Retrieval-Augmented Generation (RAG), model evaluation, and AI workflow automation. I build Python solutions with LangChain, LangGraph, FastAPI, vector databases, REST APIs, webhooks, and n8n.",
+    "I am an AI Engineer working with companies in the UAE and the wider Gulf - Dubai, Abu Dhabi, Riyadh - remotely today and open to relocation. My work spans Agentic AI, LLM applications, Retrieval-Augmented Generation (RAG), model evaluation, and AI workflow automation, built in Python with LangChain, LangGraph, FastAPI, vector databases, REST APIs, webhooks, and n8n.",
     "At Turing I contribute to Google Gemini personalized model-training workflows, and through Revelo I evaluated an Anthropic model on real-world GitHub issues - so I know how models behave, where they fail, and how to measure it.",
     "As founder of INNOVIAST I delivered AI automation, SaaS applications, and business software for clients: knowledge-based chatbots, lead generation, customer support, and document processing that ship and get used.",
   ],
@@ -466,6 +467,35 @@ export const certifications = [
     detail: "MySQL and Microsoft SQL Server Management Studio.",
   },
 ];
+
+/** Short, direct answers for visitors and AI answer engines (also emitted as FAQPage schema). */
+export const faq = [
+  {
+    question: "Who is Noman Aqeel?",
+    answer:
+      "Noman Aqeel is an AI Engineer serving companies in the UAE and the Gulf, originally from Bahawalpur, Pakistan. He builds Agentic AI systems, LLM applications, RAG pipelines, and AI workflow automation with Python, LangChain, LangGraph, FastAPI, vector databases, and n8n, and currently works as an AI Model Trainer / Data Analyst at Turing.",
+  },
+  {
+    question: "Is Noman Aqeel available for hire as an AI Engineer in the UAE (Dubai, Abu Dhabi)?",
+    answer:
+      "Yes. Noman is open to full-time, contract, and freelance AI engineering work with UAE and GCC companies - remote today, and open to relocation or on-site roles in Dubai, Abu Dhabi, Sharjah, or elsewhere in the Gulf. Email, WhatsApp, LinkedIn, or the contact form on this page all reach him directly.",
+  },
+  {
+    question: "What AI services does Noman Aqeel offer to businesses in the UAE?",
+    answer:
+      "AI agents and agentic workflows, LLM application development, RAG knowledge assistants and chatbots, n8n / Make.com / Zapier workflow automation, GoHighLevel business systems (websites, funnels, CRM pipelines, recruitment systems, AI voice agents), WhatsApp and customer-support automation, and AI model evaluation - for startups, agencies, and enterprises in Dubai, Abu Dhabi, and across the GCC.",
+  },
+  {
+    question: "Which tools and technologies does Noman Aqeel work with?",
+    answer:
+      "Python, LangChain, LangGraph, FastAPI, REST APIs and webhooks, Pinecone, ChromaDB, FAISS, n8n, Make.com, Zapier, GoHighLevel, PostgreSQL, MySQL, Firebase, Docker, and AWS, plus WordPress and Shopify for web work.",
+  },
+  {
+    question: "How can I contact Noman Aqeel?",
+    answer:
+      "Email nomanaqeel773@gmail.com, message +92 326 3426361 on WhatsApp, connect on LinkedIn, or send a note through the contact form at the bottom of this page.",
+  },
+] as const;
 
 export const contact = {
   heading: "Have a workflow worth automating?",

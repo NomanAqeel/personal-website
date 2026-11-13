@@ -11,6 +11,7 @@ export function WinFrame({
   right,
   menu = false,
   className = "",
+  heading,
   children,
 }: {
   wid?: string;
@@ -20,10 +21,13 @@ export function WinFrame({
   right?: ReactNode;
   menu?: boolean;
   className?: string;
+  /** Plain-English section heading for search engines and screen readers (the title bar stays decorative). */
+  heading?: string;
   children: ReactNode;
 }) {
   return (
-    <section id={id} className={`r-box scroll-mt-14 p-[3px] ${className}`}>
+    <section id={id} className={`r-box scroll-mt-14 p-[3px] ${className}`} aria-label={heading}>
+      {heading ? <h2 className="sr-only">{heading}</h2> : null}
       <div className={BARS[variant]}>
         <span>{title}</span>
         <span className="flex shrink-0 items-center gap-2">
