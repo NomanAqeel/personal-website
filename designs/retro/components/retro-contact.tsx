@@ -16,7 +16,8 @@ export function RetroContact() {
     event.preventDefault();
     const form = event.currentTarget;
     const data = new FormData(form);
-    if (String(data.get("company") ?? "")) return;
+    // Web3Forms' own honeypot: a hidden checkbox. Browser autofill never ticks it, unlike a text field.
+    if (data.get("botcheck")) return;
     const name = String(data.get("name") ?? "").trim();
     const email = String(data.get("email") ?? "").trim();
     const message = String(data.get("message") ?? "").trim();
@@ -44,23 +45,21 @@ export function RetroContact() {
           message,
         }),
       });
-      const result = (await response.json().catch(() => null)) as { success?: boolean } | null;
-      if (!response.ok || !result?.success) throw new Error("send failed");
+      const result = (await response.json().catch(() => null)) as { success?: boolean; message?: string } | null;
+      if (!response.ok || !result?.success) throw new Error(result?.message || `HTTP ${response.status}`);
       form.reset();
       setState("sent");
       setLog(">> [STATUS: SUCCESS] Message delivered. I'll reply by email.");
-    } catch {
+    } catch (error) {
+      const reason = error instanceof Error && error.message ? ` (${error.message})` : "";
       setState("error");
-      setLog(`>> [ERROR] Transmission failed. Email me directly: ${profile.email}`);
+      setLog(`>> [ERROR] Transmission failed${reason}. Email me directly: ${profile.email}`);
     }
   };
 
   return (
     <form onSubmit={onSubmit} className="relative z-[3] mt-5 grid gap-4">
-      <label aria-hidden="true" style={{ position: "absolute", left: -9999, top: 0 }}>
-        Leave empty
-        <input name="company" tabIndex={-1} autoComplete="off" />
-      </label>
+      <input type="checkbox" name="botcheck" tabIndex={-1} aria-hidden="true" style={{ display: "none" }} />
       <div className="grid gap-4 sm:grid-cols-2">
         <label className="grid gap-1.5 r-label text-[12px] text-[#9cff9c]">
           CALLSIGN / NAME:
