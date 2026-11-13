@@ -152,7 +152,6 @@ export function RetroDesktop() {
                 AI <mark>Engineer</mark>
               </h1>
               <p className="mt-2 r-label text-[13px] text-[#1e1c12]">{profile.tagline}</p>
-              <p className="mt-1 text-[12px] text-[#2e7d78]">{hero.locationLine}</p>
               <p className="mt-2 text-[12.5px] text-[#3e4949]">
                 {about.heading} {about.headingAccent}
               </p>

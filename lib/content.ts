@@ -34,7 +34,6 @@ export const navItems = [
 
 export const hero = {
   availability: "Open to work anywhere - remote or on-site",
-  locationLine: "AI Engineer for UAE & Gulf companies - Dubai, Abu Dhabi, GCC · remote today, open to relocation and on-site roles",
   role: "AI Engineer",
   lead: "I build Agentic AI systems, LLM applications, RAG pipelines, and AI workflow automation - Python, LangChain, LangGraph, FastAPI, vector databases, and n8n - and turn business requirements into tested, deployable solutions.",
   primaryCta: { href: "#projects", label: "See work" },

@@ -60,7 +60,7 @@ The downloadable résumé (`public/Noman_Aqeel_CV.pdf`) is generated from `cv/re
 - Metadata, Open Graph/Twitter cards, `robots.txt`, `sitemap.xml`, and `rel="me"` links are generated in `app/layout.tsx`, `app/robots.ts`, and `app/sitemap.ts` from `lib/site.ts`.
 - Structured data (`ProfilePage` → `Person`, `WebSite`, `FAQPage`) lives in `components/json-ld.tsx`; the visible FAQ window and the schema both read `faq` in `lib/content.ts`.
 - `public/llms.txt` gives AI answer engines a plain-text summary.
-- Target market is the UAE/GCC: titles, keywords, FAQ copy, and schema `areaServed` say so. Change `siteConfig` in `lib/site.ts` and `faq`/`hero.locationLine` in `lib/content.ts` to retarget.
+- Target market is the UAE/GCC: titles, keywords, FAQ copy, and schema `areaServed` say so. Change `siteConfig` in `lib/site.ts` and `faq` in `lib/content.ts` to retarget.
 - After deploying, verify the domain in Google Search Console and Bing Webmaster Tools, put the codes in `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` / `NEXT_PUBLIC_BING_SITE_VERIFICATION`, and submit `/sitemap.xml`.
 
 ## Deploy on Vercel
