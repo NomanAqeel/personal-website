@@ -1,13 +1,12 @@
 {
-  "name": "personal-webiste",
+  "name": "personal-website",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint",
-    "cv": "sh cv/build.sh"
+    "lint": "eslint"
   },
   "dependencies": {
     "framer-motion": "^13.2.0",
