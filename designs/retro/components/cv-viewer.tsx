@@ -10,6 +10,8 @@ export function openCv() {
 }
 
 const FILE_NAME = "Noman_Aqeel_CV.pdf";
+/** Page images rendered by cv/build.sh (public/cv-pages/page-N.jpg) for phones, where PDF iframes don't scale. */
+const PAGE_IMAGES = [1, 2].map((n) => `/cv-pages/page-${n}.jpg`);
 
 export function CvDownloadLink({ className, children }: { className?: string; children: ReactNode }) {
   return (
@@ -66,10 +68,23 @@ export function CvModal() {
             ×
           </button>
         </div>
+        {/* Phones: the PDF rendered as images (scales to width). Larger screens: the browser's PDF viewer. */}
+        <div className="r-sunken min-h-0 flex-1 overflow-y-auto bg-[#808080] p-2 md:hidden">
+          {PAGE_IMAGES.map((src, i) => (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              key={src}
+              src={src}
+              alt={`${profile.name} resume, page ${i + 1}`}
+              className={`block w-full bg-white ${i > 0 ? "mt-2" : ""}`}
+              loading={i === 0 ? "eager" : "lazy"}
+            />
+          ))}
+        </div>
         <iframe
           title={`${profile.name} resume`}
           src={`${profile.cvHref}#page=1&navpanes=0`}
-          className="min-h-0 w-full flex-1 bg-white"
+          className="hidden min-h-0 w-full flex-1 bg-white md:block"
         />
         <div className="flex justify-end gap-2 bg-[#c0c0c0] p-2">
           <CvDownloadLink className="r-btn">[ DOWNLOAD PDF ]</CvDownloadLink>

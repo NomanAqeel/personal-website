@@ -689,3 +689,18 @@ body:has(.retro-root) nextjs-portal {
     animation: none;
   }
 }
+
+/* ---- Sideways-scrolling strips (taskbar buttons, DEMO.EXE dots): no visible scrollbar, no vertical scroll ---- */
+.r-taskbar-nav,
+.r-dots {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  overscroll-behavior-x: contain;
+}
+.r-taskbar-nav::-webkit-scrollbar,
+.r-dots::-webkit-scrollbar {
+  display: none;
+}
+.r-dots {
+  justify-content: safe center;
+}

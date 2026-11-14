@@ -116,7 +116,7 @@ export function RetroDesktop() {
         </div>
       </header>
 
-      <main className="mx-auto grid max-w-[1400px] grid-cols-[minmax(0,1fr)] gap-6 px-3 pt-4 sm:px-6 lg:px-10">
+      <main className="mx-auto grid max-w-[1400px] grid-cols-[minmax(0,1fr)] gap-6 px-3 pt-4 sm:px-6 lg:px-10 2xl:max-w-[1720px] 2xl:px-12">
         <div className="flex flex-wrap items-center justify-between gap-2 r-label text-[11px] text-white">
           <span className="r-path bg-black/30 px-2 py-0.5">C:\PORTFOLIO\{fileName(profile.name)}.EXE</span>
           <span className="r-path bg-black/30 px-2 py-0.5">STATION: {profile.place.toUpperCase()} {"//"} {profile.role.toUpperCase()}</span>

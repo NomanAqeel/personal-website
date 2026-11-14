@@ -4,7 +4,7 @@ import { ProjectVisual } from "@/components/project-previews";
 import { linkLabel, projects } from "@/lib/content";
 import { isHttpUrl } from "@/lib/site";
 import { useReducedMotion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { sfx } from "./sfx";
 
 const AUTO_ADVANCE_MS = 9000;
@@ -16,6 +16,15 @@ export function ArcadeCabinet() {
   const [hovered, setHovered] = useState(false);
   const [userPicked, setUserPicked] = useState(false);
   const project = projects[index] ?? projects[0];
+  const dotsRef = useRef<HTMLDivElement>(null);
+
+  // Keep the active dot in view without scrolling the page (the strip scrolls sideways on phones).
+  useEffect(() => {
+    const strip = dotsRef.current;
+    const dot = strip?.children[index] as HTMLElement | undefined;
+    if (!strip || !dot || strip.scrollWidth <= strip.clientWidth) return;
+    strip.scrollTo({ left: dot.offsetLeft - strip.clientWidth / 2 + dot.offsetWidth / 2, behavior: "smooth" });
+  }, [index]);
 
   useEffect(() => {
     if (reduce || hovered || userPicked) return;
@@ -76,11 +85,11 @@ export function ArcadeCabinet() {
         </div>
 
         {/* Controls */}
-        <div className="mt-4 flex items-center justify-between gap-2 border-t border-[#c8c0ae] pt-3">
-          <button type="button" className="r-btn" data-sfx="blip" onClick={() => go(index - 1)} aria-label="Previous project">
+        <div className="mt-4 flex items-center gap-2 border-t border-[#c8c0ae] pt-3">
+          <button type="button" className="r-btn shrink-0 px-2 sm:px-3" data-sfx="blip" onClick={() => go(index - 1)} aria-label="Previous project">
             ◀ PREV
           </button>
-          <div className="flex gap-1.5" role="tablist" aria-label="Choose a project">
+          <div ref={dotsRef} className="r-dots flex min-w-0 flex-1 items-center gap-1.5 overflow-x-auto px-1 py-1" role="tablist" aria-label="Choose a project">
             {projects.map((p, i) => (
               <button
                 key={p.id}
@@ -90,11 +99,11 @@ export function ArcadeCabinet() {
                 aria-selected={i === index}
                 aria-label={p.name}
                 onClick={() => go(i)}
-                className={`h-3 w-3 border border-black ${i === index ? "bg-[#2e7d78]" : "bg-white"}`}
+                className={`h-3 w-3 shrink-0 border border-black ${i === index ? "bg-[#2e7d78]" : "bg-white"}`}
               />
             ))}
           </div>
-          <button type="button" className="r-btn" data-sfx="blip" onClick={() => go(index + 1)} aria-label="Next project">
+          <button type="button" className="r-btn shrink-0 px-2 sm:px-3" data-sfx="blip" onClick={() => go(index + 1)} aria-label="Next project">
             NEXT ▶
           </button>
         </div>

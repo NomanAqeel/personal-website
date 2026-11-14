@@ -58,10 +58,10 @@ export type Task = { wid: string; href: string; label: string };
 export function Taskbar({ tasks }: { tasks: Task[] }) {
   return (
     <footer className="r-taskbar r-box flex items-center gap-2 px-1.5 py-1 shadow-none">
-      <a href="#about" className="r-btn px-2 py-0.5 text-[11px]">
-        <span className="text-[#008080]">▚</span> Start
-      </a>
-      <nav className="flex min-w-0 flex-1 gap-1.5 overflow-x-auto" aria-label="Windows">
+      <nav className="r-taskbar-nav flex min-w-0 flex-1 items-center gap-1.5 overflow-x-auto overflow-y-hidden py-0.5 pr-0.5" aria-label="Windows">
+        <a href="#about" className="r-btn shrink-0 px-2 py-0.5 text-[11px]">
+          <span className="text-[#008080]">▚</span> Start
+        </a>
         {tasks.map((task) => (
           <a key={task.wid} href={task.href} className="r-btn shrink-0 px-2 py-0.5 text-[11px] normal-case">
             {task.label}
