@@ -18,13 +18,15 @@ export function ArcadeCabinet() {
   const project = projects[index] ?? projects[0];
   const dotsRef = useRef<HTMLDivElement>(null);
 
-  // Keep the active dot in view without scrolling the page (the strip scrolls sideways on phones).
+  // Slide the dot strip so the highlighted dot is centred (it scrolls sideways on phones).
+  // The strip is position: relative, so offsetLeft is measured from the strip itself.
   useEffect(() => {
     const strip = dotsRef.current;
     const dot = strip?.children[index] as HTMLElement | undefined;
     if (!strip || !dot || strip.scrollWidth <= strip.clientWidth) return;
-    strip.scrollTo({ left: dot.offsetLeft - strip.clientWidth / 2 + dot.offsetWidth / 2, behavior: "smooth" });
-  }, [index]);
+    const left = Math.max(0, dot.offsetLeft + dot.offsetWidth / 2 - strip.clientWidth / 2);
+    strip.scrollTo({ left, behavior: reduce ? "auto" : "smooth" });
+  }, [index, reduce]);
 
   useEffect(() => {
     if (reduce || hovered || userPicked) return;
@@ -89,7 +91,7 @@ export function ArcadeCabinet() {
           <button type="button" className="r-btn shrink-0 px-2 sm:px-3" data-sfx="blip" onClick={() => go(index - 1)} aria-label="Previous project">
             ◀ PREV
           </button>
-          <div ref={dotsRef} className="r-dots flex min-w-0 flex-1 items-center gap-1.5 overflow-x-auto px-1 py-1" role="tablist" aria-label="Choose a project">
+          <div ref={dotsRef} className="r-dots relative flex min-w-0 flex-1 items-center gap-1.5 overflow-x-auto px-1 py-1" role="tablist" aria-label="Choose a project">
             {projects.map((p, i) => (
               <button
                 key={p.id}
