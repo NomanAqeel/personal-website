@@ -76,13 +76,59 @@ export type ExperienceItem = {
   areas: string[];
 };
 
-export const experience: ExperienceItem[] = [
+/**
+ * DATE VERSIONS - two sets of experience/education dates live in the code; only one is shown.
+ * - "original":   the dates as first published on the site.
+ * - "freelancer": the dates used for freelance profiles.
+ * Switch by changing DATE_VERSION below (nothing else needs editing). Both the dates and the
+ * order of the experience entries follow the active version. The CV PDF (cv/resume.html) is
+ * not switched automatically.
+ */
+export type DateVersion = "original" | "freelancer";
+export const DATE_VERSION: DateVersion = "freelancer";
+
+const DATE_SETS: Record<
+  DateVersion,
+  {
+    turing: string;
+    revelo3d: string;
+    revelo: string;
+    innoviast: string;
+    web: string;
+    education: string;
+    /** Order of the experience entries, top to bottom. */
+    order: string[];
+  }
+> = {
+  original: {
+    turing: "Jan 2026 – Present",
+    revelo3d: "Sep 2026 – Oct 2026 · Remote",
+    revelo: "Project-based · 1 month",
+    innoviast: "Jun 2025 – Jun 2026",
+    web: "2024 – 2025",
+    education: "Nov 2022 – Jun 2026",
+    order: ["turing", "revelo-3d", "revelo", "innoviast", "web"],
+  },
+  freelancer: {
+    turing: "Jan 2026 – Present",
+    revelo3d: "Aug 2026 – Nov 2026 · Remote",
+    revelo: "Project-based · 4 months",
+    innoviast: "Jun 2025 – Present",
+    web: "2023 – 2025",
+    education: "Nov 2021 – Jun 2025",
+    order: ["turing", "innoviast", "revelo-3d", "revelo", "web"],
+  },
+};
+const dates = DATE_SETS[DATE_VERSION];
+const isCurrent = (range: string) => range.endsWith("Present");
+
+const experienceEntries: ExperienceItem[] = [
   {
     id: "turing",
     organization: "Turing",
     role: "AI Model Trainer / Data Analyst",
-    dates: "Jan 2026 – Present",
-    current: true,
+    dates: dates.turing,
+    current: isCurrent(dates.turing),
     summary:
       "Evaluating outputs for Google Gemini personalized model-training projects, with structured feedback that keeps training data reliable.",
     points: [
@@ -96,7 +142,7 @@ export const experience: ExperienceItem[] = [
     id: "revelo-3d",
     organization: "Revelo",
     role: "3D Developer – AI Model Training",
-    dates: "Sep 2026 – Oct 2026 · Remote",
+    dates: dates.revelo3d,
     summary:
       "Contract role training and evaluating an AI-powered 3D website-building model, reviewing and refining the interactive 3D web scenes it generates.",
     points: [
@@ -110,7 +156,7 @@ export const experience: ExperienceItem[] = [
     id: "revelo",
     organization: "Revelo",
     role: "AI Model (Opus 4.6) Evaluator",
-    dates: "Project-based · 1 month",
+    dates: dates.revelo,
     summary:
       "Part-time evaluation of an Anthropic model on coding, reasoning, and issue-resolution tasks derived from real-world GitHub issues.",
     points: [
@@ -124,7 +170,8 @@ export const experience: ExperienceItem[] = [
     id: "innoviast",
     organization: "INNOVIAST",
     role: "Founder",
-    dates: "Jun 2025 – Jun 2026",
+    dates: dates.innoviast,
+    current: isCurrent(dates.innoviast),
     summary:
       "Led hands-on delivery of AI automation, SaaS applications, business software, and web solutions for client requirements.",
     points: [
@@ -138,7 +185,7 @@ export const experience: ExperienceItem[] = [
     id: "web",
     organization: "Freelancing, YoungDev & Cosmicode",
     role: "Web Developer",
-    dates: "2024 – 2025",
+    dates: dates.web,
     summary: "Client and internship web projects: WordPress sites, responsive interfaces, and PHP/JavaScript features.",
     points: [
       "Delivered WordPress sites, responsive interfaces, and PHP/JavaScript features for client and internship projects.",
@@ -147,6 +194,12 @@ export const experience: ExperienceItem[] = [
     areas: ["WordPress", "PHP", "JavaScript", "Performance"],
   },
 ];
+
+export const experience: ExperienceItem[] = dates.order.map((id) => {
+  const item = experienceEntries.find((entry) => entry.id === id);
+  if (!item) throw new Error(`Unknown experience id in DATE_SETS order: ${id}`);
+  return item;
+});
 
 export const expertise = {
   kicker: "Capabilities",
@@ -430,7 +483,7 @@ export const skillGroups = [
 export const education = {
   degree: "BS Computer Science",
   school: "Superior University, Lahore",
-  dates: "Nov 2022 – Jun 2026",
+  dates: dates.education,
   grade: "CGPA 3.6 / 4.0",
 };
 
