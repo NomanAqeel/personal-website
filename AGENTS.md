@@ -15,7 +15,8 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 - When Noman says **"original version dates"** (or "original dates lagao"): set `DATE_VERSION = "original"`.
 - When Noman says **"freelancer dates"** (or "freelancer version"): set `DATE_VERSION = "freelancer"`.
 - Never show both; never edit the inactive set unless asked. To change a date, edit it inside `DATE_SETS` for the right version only.
-- The CV (`cv/resume.html` → `public/Noman_Aqeel_CV.pdf`, built with `npm run cv`) carries the **original** dates and is not switched automatically; change it only when asked.
+- **The CV follows the same switch.** `npm run cv` renders `cv/resume.template.html` with the active version's dates and experience order (`cv/build.mjs` reads `lib/content.ts`), rebuilds `public/Noman_Aqeel_CV.pdf` and `public/cv-pages/*.jpg`. So switching = change `DATE_VERSION`, run `npm run cv`, verify two pages, commit the content change **and** the regenerated PDF/images together. Site and CV must never show different date sets.
+- Date placeholders in the template are `{{date:turing}}`, `{{date:innoviast}}`, `{{date:revelo-3d}}`, `{{date:revelo}}`, `{{date:web}}`, `{{date:education}}`; experience blocks are wrapped in `<!-- exp:<id> --> … <!-- /exp:<id> -->` and reordered automatically.
 
 | Entry | original | freelancer |
 | --- | --- | --- |

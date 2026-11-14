@@ -53,7 +53,7 @@ Then set `NEXT_PUBLIC_SITE_URL` to your domain. On Vercel it is picked up automa
 
 ## CV
 
-The downloadable résumé (`public/Noman_Aqeel_CV.pdf`) is generated from `cv/resume.html`. Edit the HTML, then run `npm run cv` (needs Google Chrome; it fails if the PDF grows past two pages). The `[OPEN RESUME.PDF]` button and the `CV.PDF` download link both point to that file via `profile.cvHref` in `lib/content.ts`.
+The downloadable résumé (`public/Noman_Aqeel_CV.pdf`) is generated from `cv/resume.template.html`: `npm run cv` fills in the dates and experience order of the active `DATE_VERSION` (see `lib/content.ts`), prints the page with headless Chrome (it fails if the PDF grows past two pages), and refreshes the phone page images in `public/cv-pages/`. Edit the template, never the generated `cv/resume.html`. The `[OPEN RESUME.PDF]` button and the `CV.PDF` download link both point to that file via `profile.cvHref` in `lib/content.ts`.
 
 ## SEO
 

@@ -1,7 +1,10 @@
 #!/bin/sh
-# Renders cv/resume.html to public/Noman_Aqeel_CV.pdf with headless Chrome (A4) and checks it stays within two pages.
+# Fills cv/resume.template.html with the active DATE_VERSION (lib/content.ts), renders it to
+# public/Noman_Aqeel_CV.pdf with headless Chrome (A4), checks it stays within two pages, and
+# refreshes the phone page images. Run with `npm run cv`.
 set -e
 cd "$(dirname "$0")/.."
+node cv/build.mjs
 CHROME="${CHROME:-/Applications/Google Chrome.app/Contents/MacOS/Google Chrome}"
 OUT="public/Noman_Aqeel_CV.pdf"
 "$CHROME" --headless=new --disable-gpu --no-pdf-header-footer \

@@ -36,7 +36,7 @@ export function JsonLd() {
       { "@type": "Country", name: "Saudi Arabia" },
       { "@type": "Country", name: "Pakistan" },
     ],
-    worksFor: current ? { "@type": "Organization", name: current.organization } : undefined,
+    worksFor: current ? { "@type": "Organization", name: current.organization, ...(current.linkedin ? { sameAs: current.linkedin } : {}) } : undefined,
     alumniOf: { "@type": "CollegeOrUniversity", name: education.school },
     hasOccupation: {
       "@type": "Occupation",

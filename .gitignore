@@ -44,3 +44,6 @@ next-env.d.ts
 # Word lock files and local CV source copies
 ~$*
 /*.docx
+
+# generated from cv/resume.template.html by cv/build.mjs
+/cv/resume.html

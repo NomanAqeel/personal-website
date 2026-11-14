@@ -74,7 +74,15 @@ export type ExperienceItem = {
   summary: string;
   points: string[];
   areas: string[];
+  /** Company page on LinkedIn, shown as a button on the experience card. */
+  linkedin?: string;
 };
+
+export const companyLinks = {
+  turing: "https://www.linkedin.com/company/turingcom/posts/",
+  revelo: "https://www.linkedin.com/company/revelohq/posts/",
+  innoviast: "https://www.linkedin.com/company/innoviast",
+} as const;
 
 /**
  * DATE VERSIONS - two sets of experience/education dates live in the code; only one is shown.
@@ -137,6 +145,7 @@ const experienceEntries: ExperienceItem[] = [
       "Provide structured feedback that documents quality issues and supports reliable personalized model-training processes.",
     ],
     areas: ["Google Gemini", "Model training", "Reasoning analysis", "Annotation quality", "Data analysis"],
+    linkedin: companyLinks.turing,
   },
   {
     id: "revelo-3d",
@@ -151,6 +160,7 @@ const experienceEntries: ExperienceItem[] = [
       "Ran visual, functional, and responsive QA across screen sizes, and gave structured feedback to improve the model's accuracy and 3D website generation.",
     ],
     areas: ["Three.js", "3D web development", "JavaScript", "AI model training", "Prompt engineering"],
+    linkedin: companyLinks.revelo,
   },
   {
     id: "revelo",
@@ -165,6 +175,7 @@ const experienceEntries: ExperienceItem[] = [
       "Documented evaluation outcomes clearly to support consistent assessment of model capabilities.",
     ],
     areas: ["Anthropic", "Code evaluation", "Issue resolution", "Quality gaps"],
+    linkedin: companyLinks.revelo,
   },
   {
     id: "innoviast",
@@ -180,6 +191,7 @@ const experienceEntries: ExperienceItem[] = [
       "Guided workflow-automation and SaaS projects with attention to usability, operational needs, and clear client communication.",
     ],
     areas: ["AI automation", "SaaS", "Solution planning", "Client delivery"],
+    linkedin: companyLinks.innoviast,
   },
   {
     id: "web",

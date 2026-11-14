@@ -272,6 +272,19 @@ export function RetroDesktop() {
                       </span>
                     ))}
                   </div>
+                  {item.linkedin ? (
+                    <div className="mt-3">
+                      <a
+                        href={item.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="r-btn text-[#0a66c2]"
+                        aria-label={`${item.organization} on LinkedIn (opens in a new tab)`}
+                      >
+                        <span aria-hidden="true">in</span> [{item.organization.toUpperCase()} ON LINKEDIN]
+                      </a>
+                    </div>
+                  ) : null}
                 </div>
               </SubWin>
             ))}

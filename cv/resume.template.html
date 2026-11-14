@@ -4,7 +4,8 @@
 <meta charset="utf-8">
 <title>Noman Aqeel - Resume</title>
 <style>
-  /* Source for public/Noman_Aqeel_CV.pdf. Build with `npm run cv` (headless Chrome, A4, 2 pages).
+  /* TEMPLATE for public/Noman_Aqeel_CV.pdf: cv/build.mjs fills the date placeholders and orders the
+     experience blocks from the active DATE_VERSION in lib/content.ts, then cv/build.sh prints it (A4, 2 pages).
      Sizes/colours mirror the original PDF: Arial, #1a1a1a body, #17365d headings, #4a5568 muted. */
   @page { size: A4; margin: 9.5mm 12.75mm 10.5mm 13mm; }
   * { box-sizing: border-box; }
@@ -65,25 +66,35 @@
 <p class="skill"><b>Soft Skills:</b> Problem Solving, Team Management, Project Management, Client Communication, Cross-functional Coordination, Requirements Analysis, Attention to Detail</p>
 
 <h2>Professional Experience</h2>
-<p class="role"><span>AI Model Trainer / Data Analyst | Turing</span><span class="date">Jan 2026 – Present</span></p>
+<!-- exp:turing -->
+<p class="role"><span>AI Model Trainer / Data Analyst | Turing</span><span class="date">{{date:turing}}</span></p>
 <p class="b"><span class="dot">•</span> Evaluate outputs for Google Gemini personalized model-training projects, analyzing user intent, response quality, and adherence to project guidelines.</p>
 <p class="b"><span class="dot">•</span> Assess prompts and outputs for reasoning quality, accuracy, consistency, model behavior, and annotation quality across AI and data workflows.</p>
 <p class="b"><span class="dot">•</span> Provide structured feedback that documents quality issues and supports reliable personalized model-training processes.</p>
-<p class="role"><span>3D Developer – AI Model Training | Revelo</span><span class="date">Sep 2026 – Oct 2026 | Remote</span></p>
+<!-- /exp:turing -->
+<!-- exp:revelo-3d -->
+<p class="role"><span>3D Developer – AI Model Training | Revelo</span><span class="date">{{date:revelo-3d}}</span></p>
 <p class="b"><span class="dot">•</span> Reviewed and refined AI-generated interactive 3D web scenes (HTML, JavaScript, Three.js) covering lighting, materials, animations, camera controls, and interactions.</p>
 <p class="b"><span class="dot">•</span> Evaluated model outputs against detailed visual and functional rubrics, and wrote automated tests and validations for required features.</p>
 <p class="b"><span class="dot">•</span> Ran visual, functional, and responsive QA across screen sizes and gave structured feedback to improve the model's accuracy and 3D website generation.</p>
-<p class="role"><span>AI Model (Opus 4.6) Evaluator | Revelo</span><span class="date">Project-Based, Part-Time | 1 Month</span></p>
+<!-- /exp:revelo-3d -->
+<!-- exp:revelo -->
+<p class="role"><span>AI Model (Opus 4.6) Evaluator | Revelo</span><span class="date">{{date:revelo}}</span></p>
 <p class="b"><span class="dot">•</span> Evaluated an Anthropic model on coding, reasoning, and issue-resolution tasks derived from real-world GitHub issues.</p>
 <p class="b"><span class="dot">•</span> Compared generated fixes with issue requirements, reviewed solution quality, and identified technical limitations and quality gaps.</p>
 <p class="b"><span class="dot">•</span> Documented evaluation outcomes clearly to support consistent assessment of model capabilities.</p>
-<p class="role"><span>Founder | INNOVIAST</span><span class="date">Jun 2025 – Jun 2026</span></p>
+<!-- /exp:revelo -->
+<!-- exp:innoviast -->
+<p class="role"><span>Founder | INNOVIAST</span><span class="date">{{date:innoviast}}</span></p>
 <p class="b"><span class="dot">•</span> Led hands-on delivery of AI automation, SaaS applications, business software, and web solutions for client requirements.</p>
 <p class="b"><span class="dot">•</span> Translated business needs into solution plans and coordinated development, testing, deployment, support, and cross-functional delivery.</p>
 <p class="b"><span class="dot">•</span> Guided workflow-automation and SaaS projects with attention to usability, operational needs, and clear client communication.</p>
-<p class="role"><span>Web Development Experience | Freelancing, YoungDev &amp; Cosmicode</span><span class="date">2024 – 2025</span></p>
+<!-- /exp:innoviast -->
+<!-- exp:web -->
+<p class="role"><span>Web Development Experience | Freelancing, YoungDev &amp; Cosmicode</span><span class="date">{{date:web}}</span></p>
 <p class="b"><span class="dot">•</span> Delivered WordPress sites, responsive interfaces, and PHP/JavaScript features for client and internship projects.</p>
 <p class="b"><span class="dot">•</span> Handled debugging, database integration, performance optimization, and client-focused project delivery.</p>
+<!-- /exp:web -->
 
 <h2>AI &amp; Automation Projects</h2>
 <p class="project">HemaSphere — Blood Management Ecosystem (Final Year Project)<span class="sep">  |  </span><span class="tech">Flutter, Next.js, Node.js, PostgreSQL, FastAPI, Firebase, AWS</span></p>
@@ -118,7 +129,7 @@
 <p class="b"><span class="dot">•</span> Automated invoice summaries, email notifications, and validation workflows using AI-powered document processing.</p>
 
 <h2>Education</h2>
-<p class="role"><span>BS Computer Science | Superior University, Lahore</span><span class="date">Nov 2022 – Jun 2026</span></p>
+<p class="role"><span>BS Computer Science | Superior University, Lahore</span><span class="date">{{date:education}}</span></p>
 <p>CGPA: 3.6 / 4.0</p>
 
 <h2>Publication</h2>
